@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* 改为垂直布局 */
+    justify-content: center; /* 垂直居中 */
+    align-items: center; /* 水平居中 */
+    height: 100vh; /* 使容器高度填满视口 */
+}
+
+.top, .bottom {
+    width: 60%; /* 每个部分宽度为60% */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 居中对齐内容 */
+    border: 1px solid #ccc; /* 边框 */
+    padding: 20px;
+    background-color: #fff; /* 背景颜色 */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* 阴影 */
+    margin: 10px 0; /* 上下部分之间的间距 */
+}
+
+.results {
+    margin-top: 20px; /* 与上方间隔 */
+    display: flex;
+    flex-direction: column; /* 垂直排列 */
+    align-items: center; /* 居中 */
+}
+
+.result-box {
+    margin-bottom: 10px; /* 每个结果框之间的间距 */
+}
+
+.result-box input {
+    width: 110px; /* 输入框宽度 */
+    text-align: center; /* 输入框内容居中 */
+    padding: 5px; /* 内边距 */
+}
+
+.divider {
+    width: 100%; /* 分割线宽度 */
+    height: 2px; /* 分割线高度 */
+    background-color: #333; /* 分割线颜色 */
+    margin: 20px 0; /* 分割线上下间距 */
+}
+
+.input-section {
+    margin-bottom: 10px; /* 输入框与上方间隔 */
+    text-align: center; /* 输入框内容居中 */
+}
+
+.input-section label {
+    margin-right: 10px; /* 标签与输入框间距 */
+}
+
+.input-section input {
+    width: 80px; /* 输入框宽度 */
+    text-align: center; /* 输入框内容居中 */
+}
+
+.buttons {
+    margin-top: 20px; /* 按钮与上方间隔 */
+}
+
+button {
+    margin: 5px; /* 按钮间距 */
+    padding: 10px 20px; /* 按钮内边距 */
+    background-color: #007bff; /* 按钮背景颜色 */
+    color: white; /* 按钮字体颜色 */
+    border: none; /* 去掉边框 */
+    border-radius: 5px; /* 圆角 */
+    cursor: pointer; /* 鼠标指针 */
+}
+
+button:hover {
+    background-color: #000cb3; /* 鼠标悬停时按钮颜色 */
+}
+
+#status {
+    margin-top: 15px; /* 状态框与上方间隔 */
+    width: 150px; /* 状态框宽度 */
+    text-align: center; /* 状态框内容居中 */
+    padding: 5px; /* 内边距 */
+}
+
+h2 {
+    margin: 20px 0; /* 标题上下间距 */
+}

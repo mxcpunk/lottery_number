@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查询Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 60%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        hr {
+            border: 1px solid #ccc;
+            margin: 20px 0;
+        }
+        #status_result {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>获取组合信息</h2>
+        <div>
+            <label for="total">总数:</label>
+            <input type="text" id="total" readonly>
+        </div>
+        <div>
+            <label for="status0">Status 0:</label>
+            <input type="text" id="status0" readonly>
+        </div>
+        <div>
+            <label for="status1">Status 1:</label>
+            <input type="text" id="status1" readonly>
+        </div>
+        <button id="get_totals">获取总数</button>
+        
+        <hr>
+        
+        <h3>请输入7个数字</h3>
+        <div>
+            <label for="num1">数字 1:</label>
+            <input type="text" id="num1">
+        </div>
+        <div>
+            <label for="num2">数字 2:</label>
+            <input type="text" id="num2">
+        </div>
+        <div>
+            <label for="num3">数字 3:</label>
+            <input type="text" id="num3">
+        </div>
+        <div>
+            <label for="num4">数字 4:</label>
+            <input type="text" id="num4">
+        </div>
+        <div>
+            <label for="num5">数字 5:</label>
+            <input type="text" id="num5">
+        </div>
+        <div>
+            <label for="num6">数字 6:</label>
+            <input type="text" id="num6">
+        </div>
+        <div>
+            <label for="num7">数字 7:</label>
+            <input type="text" id="num7">
+        </div>
+        
+        <!-- 新增的状态显示区域 -->
+        <div id="status_result">状态: </div>
+        
+        <button id="check_status">查询Status</button>
+        <button id="clear_inputs">清除</button>
+    </div>
+
+    <script>
+        // 处理“获取总数”按钮点击
+        document.getElementById("get_totals").addEventListener("click", function() {
+            fetch('/get_totals')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("total").value = data.total;
+                    document.getElementById("status0").value = data.total_0;
+                    document.getElementById("status1").value = data.total_1;
+                });
+        });
+
+        // 处理“查询Status”按钮点击
+        document.getElementById("check_status").addEventListener("click", function() {
+            const numbers = [
+                document.getElementById("num1").value,
+                document.getElementById("num2").value,
+                document.getElementById("num3").value,
+                document.getElementById("num4").value,
+                document.getElementById("num5").value,
+                document.getElementById("num6").value,
+                document.getElementById("num7").value
+            ];
+
+            fetch('/check_status', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ numbers: numbers })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status) {
+                    // 更新状态结果
+                    document.getElementById("status_result").innerText = `状态: ${data.status}`; // 显示返回的 status 值
+                } else {
+                    alert('未找到该组合');
+                    document.getElementById("status_result").innerText = '状态: ';
+                }
+            })
+            .catch(error => {
+                console.error("Error checking status:", error);
+            });
+        });
+
+        // 处理“清除”按钮点击
+        document.getElementById("clear_inputs").addEventListener("click", function() {
+            const fields = ["num1", "num2", "num3", "num4", "num5", "num6", "num7"];
+            fields.forEach(field => {
+                document.getElementById(field).value = '';
+            });
+            document.getElementById("status_result").innerText = '状态: ';
+        });
+    </script>
+</body>
+</html>
